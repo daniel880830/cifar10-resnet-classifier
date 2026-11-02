@@ -1,0 +1,42 @@
+{
+  "experiment": "resnet",
+  "evaluated_on": "test",
+  "seeds": 3,
+  "accuracy": {
+    "mean": 0.9443,
+    "std": 0.0018520259177452314,
+    "min": 0.9424,
+    "max": 0.9461
+  },
+  "macro_f1": {
+    "mean": 0.9442739852487289,
+    "std": 0.0018691578417485493,
+    "min": 0.9423483712521475,
+    "max": 0.9460810428552501
+  },
+  "runs": [
+    {
+      "seed": 0,
+      "accuracy": 0.9424,
+      "macro_f1": 0.9423483712521475,
+      "train_seconds": 69.6
+    },
+    {
+      "seed": 1,
+      "accuracy": 0.9444,
+      "macro_f1": 0.9443925416387892,
+      "train_seconds": 66.0
+    },
+    {
+      "seed": 2,
+      "accuracy": 0.9461,
+      "macro_f1": 0.9460810428552501,
+      "train_seconds": 65.9
+    }
+  ],
+  "environment": {
+    "python": "3.13.18",
+    "torch": "2.14.1+cu130",
+    "device": "NVIDIA GeForce RTX 5090"
+  }
+}

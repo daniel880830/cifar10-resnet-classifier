@@ -1,0 +1,47 @@
+# The dataset is not baked into the images; it is mounted read-only from ./data/raw
+# (run `cifar download-data` first). Training runs on the GPU in the CUDA image, serving runs
+# on the CPU in the slim image; both share the model through a named volume.
+services:
+  train:
+    build:
+      context: .
+      args:
+        TORCH_VARIANT: cu130
+    image: cifar10-resnet-classifier:cu130
+    command: ["cifar", "train", "--experiment", "${CIFAR_TRAIN_EXPERIMENT:-resnet}"]
+    environment:
+      CIFAR_LOG_LEVEL: ${CIFAR_LOG_LEVEL:-info}
+      CIFAR_DEVICE: ${CIFAR_TRAIN_DEVICE:-auto}
+    volumes:
+      - ./data/raw:/app/data/raw:ro
+      - model-store:/app/models
+      - ./reports:/app/reports
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  api:
+    build:
+      context: .
+      args:
+        TORCH_VARIANT: cpu
+    image: cifar10-resnet-classifier:cpu
+    depends_on:
+      train:
+        condition: service_completed_successfully
+    environment:
+      CIFAR_LOG_LEVEL: ${CIFAR_LOG_LEVEL:-info}
+      CIFAR_MODEL_PATH: models/${CIFAR_TRAIN_EXPERIMENT:-resnet}.pt
+      CIFAR_DEVICE: cpu
+    ports:
+      - "${CIFAR_HOST_PORT:-8000}:8000"
+    volumes:
+      - model-store:/app/models:ro
+    restart: unless-stopped
+
+volumes:
+  model-store:

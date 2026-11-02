@@ -1,0 +1,39 @@
+# Experiment definitions. Run one with `cifar train --experiment <name>`.
+# `extends = "<other>"` copies another experiment and overrides the listed keys (used for ablations).
+
+[data]
+val_size = 0.2      # stratified train/validation split of the 50k training images
+split_seed = 42
+
+[experiments.resnet]
+model = "resnet9"
+normalize = "standard"      # per-channel mean/std from the training images
+augment = true              # random crop (pad 4, reflect) + horizontal flip
+optimizer = "sgd"
+nesterov = true
+momentum = 0.9
+lr = 0.4                    # OneCycle peak; chosen by `cifar sweep` on the validation split
+weight_decay = 5e-4
+batch_size = 512
+epochs = 50
+scheduler = "onecycle"
+label_smoothing = 0.1
+amp = true                  # bf16 autocast
+seed = 0
+
+# ---------------------------------------------------------------- ablations (one change each)
+[experiments.resnet_no_augment]
+extends = "resnet"
+augment = false
+
+[experiments.resnet_no_label_smoothing]
+extends = "resnet"
+label_smoothing = 0.0
+
+[experiments.resnet_fp32]
+extends = "resnet"
+amp = false
+
+[experiments.resnet_15_epochs]
+extends = "resnet"
+epochs = 15

@@ -1,0 +1,85 @@
+{
+  "experiment": "resnet",
+  "evaluated_on": "val",
+  "grid": {
+    "lr": [
+      0.1,
+      0.2,
+      0.4
+    ],
+    "epochs": [
+      30,
+      50
+    ]
+  },
+  "runs": [
+    {
+      "overrides": {
+        "lr": 0.1,
+        "epochs": 30
+      },
+      "accuracy": 0.9272,
+      "macro_f1": 0.9271660352913358,
+      "train_seconds": 36.9
+    },
+    {
+      "overrides": {
+        "lr": 0.1,
+        "epochs": 50
+      },
+      "accuracy": 0.9346,
+      "macro_f1": 0.9345507695765631,
+      "train_seconds": 52.1
+    },
+    {
+      "overrides": {
+        "lr": 0.2,
+        "epochs": 30
+      },
+      "accuracy": 0.9331,
+      "macro_f1": 0.9331252525407822,
+      "train_seconds": 32.1
+    },
+    {
+      "overrides": {
+        "lr": 0.2,
+        "epochs": 50
+      },
+      "accuracy": 0.9372,
+      "macro_f1": 0.9372075739987228,
+      "train_seconds": 52.2
+    },
+    {
+      "overrides": {
+        "lr": 0.4,
+        "epochs": 30
+      },
+      "accuracy": 0.9365,
+      "macro_f1": 0.9365460362949776,
+      "train_seconds": 32.1
+    },
+    {
+      "overrides": {
+        "lr": 0.4,
+        "epochs": 50
+      },
+      "accuracy": 0.9396,
+      "macro_f1": 0.9396272685446447,
+      "train_seconds": 52.1
+    }
+  ],
+  "best": {
+    "overrides": {
+      "lr": 0.4,
+      "epochs": 50
+    },
+    "accuracy": 0.9396,
+    "macro_f1": 0.9396272685446447,
+    "train_seconds": 52.1
+  },
+  "environment": {
+    "python": "3.13.5",
+    "torch": "2.14.1+cu130",
+    "device": "NVIDIA GeForce RTX 5090"
+  }
+}

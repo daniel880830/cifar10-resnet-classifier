@@ -1,0 +1,17 @@
+# Runtime dependencies. PyTorch is installed separately from the PyTorch index:
+#   CPU:  pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+#   CUDA: pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cu130
+numpy==2.5.4
+scikit-learn==1.9.1
+scipy==1.18.1
+joblib==1.6.0
+threadpoolctl==3.7.0
+pillow==13.0.0
+matplotlib==3.11.2
+pydantic==2.14.2
+pydantic-settings==2.16.2
+fastapi==0.162.0
+starlette==1.10.0
+python-multipart==0.0.33
+uvicorn==0.54.0
+typer==0.27.3
